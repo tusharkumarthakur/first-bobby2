@@ -8,7 +8,6 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { CommerceModule } from '@faker-js/faker';
 import confetti from 'canvas-confetti';
 import lottie from 'lottie-web'; // <-- fixed import
 
