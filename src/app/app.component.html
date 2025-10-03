@@ -1,0 +1,173 @@
+<div class="relative w-screen h-screen overflow-hidden">
+  <!-- Romantic Gradient Background -->
+  <div
+    class="absolute inset-0 bg-gradient-to-b from-pink-200 via-pink-300 to-purple-400"
+  ></div>
+
+  <!-- Floating Hearts -->
+  <div class="absolute inset-0 pointer-events-none">
+    <div class="heart animate-heart" style="--i: 0"></div>
+    <div class="heart animate-heart" style="--i: 1"></div>
+    <div class="heart animate-heart" style="--i: 2"></div>
+    <div class="heart animate-heart" style="--i: 3"></div>
+    <div class="heart animate-heart" style="--i: 4"></div>
+  </div>
+
+  <!-- Circular Orbit Images -->
+  <!-- Circular Orbit Images Behind Video -->
+  <!-- <div class="absolute inset-0 flex items-center justify-center z-0">
+  <div >
+    <img src="assets/gallery/1.jpg" class="orbit w-36 h-36 rounded-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" style="--angle:0deg;">
+    <img src="assets/gallery/2.jpg" class="orbit w-36 h-36 rounded-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" style="--angle:60deg;">
+    <img src="assets/gallery/3.jpg" class="orbit w-36 h-36 rounded-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" style="--angle:120deg;">
+    <img src="assets/gallery/4.jpg" class="orbit w-36 h-36 rounded-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" style="--angle:180deg;">
+    <img src="assets/gallery/5.jpg" class="orbit w-36 h-36 rounded-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" style="--angle:240deg;">
+    <img src="assets/gallery/6.jpg" class="orbit w-36 h-36 rounded-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" style="--angle:300deg;">
+  </div>
+</div> -->
+
+  <div class="absolute inset-0 flex items-center justify-center z-0">
+    <div *ngFor="let img of images; let i = index">
+      <img
+        [src]="img"
+        alt="not found"
+        class="orbit w-36 h-36 rounded-full"
+        [style.--angle]="(i * 360) / images.length + 'deg'"
+      />
+    </div>
+  </div>
+
+  <audio autoplay loop>
+  <source src="assets/gallery/21.mp3" type="audio/mpeg" />
+  Your browser does not support the audio element.
+</audio>
+
+
+<!-- Background Music -->
+<audio #bgAudio autoplay loop>
+  <source [src]="audios[currentAudioIndex]" type="audio/mpeg" />
+  Your browser does not support the audio element.
+</audio>
+
+<!-- Button to change music -->
+<button
+  (click)="changeMusic()"
+  class="absolute top-5 right-5 bg-pink-500 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-pink-600 z-20"
+>
+  Change Music 🎵
+</button>
+  <!-- Center Container (Video + Card) -->
+  <div class="absolute inset-0 flex items-center justify-center">
+    <div class="relative flex flex-col items-center justify-center z-10">
+      <!-- Glowing Video / GIF -->
+      <video
+        autoplay
+        loop
+        [muted]="true"
+        playsinline
+        [src]="videos[currentVideoIndex]"
+        class="w-72 h-auto rounded-2xl shadow-[0_0_50px_rgba(255,105,180,0.7)] z-10"
+      >
+        Your browser does not support the video tag.
+      </video>
+
+      <!-- Heartbeat Card Overlay -->
+      <div
+        class="mt-6 bg-white/50 backdrop-blur-md px-10 py-5 rounded-3xl shadow-lg border border-pink-300 text-center animate-pulse z-10"
+      >
+        <span
+          class="text-3xl font-extrabold text-pink-600 text-typing block overflow-hidden whitespace-nowrap border-r-4 border-pink-500"
+        >
+          Shruti 💖 Paglet............
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Tailwind Custom CSS -->
+<style>
+  /* Floating Hearts */
+  .heart {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: pink;
+    transform: rotate(45deg);
+    left: calc(20% * var(--i));
+    bottom: -10%;
+    opacity: 0.7;
+  }
+  .heart::before,
+  .heart::after {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: pink;
+    border-radius: 50%;
+  }
+  .heart::before {
+    top: -10px;
+    left: 0;
+  }
+  .heart::after {
+    left: 10px;
+    top: 0;
+  }
+  .animate-heart {
+    animation: float 6s infinite ease-in-out;
+  }
+  @keyframes float {
+    0% {
+      transform: translateY(0) rotate(45deg);
+      opacity: 0.7;
+    }
+    50% {
+      transform: translateY(-150px) rotate(45deg);
+      opacity: 0.5;
+    }
+    100% {
+      transform: translateY(-300px) rotate(45deg);
+      opacity: 0;
+    }
+  }
+
+  /* Circular Orbit Animation for Images */
+  .orbit {
+    transform-origin: 50% 50%;
+    animation: orbit 28s linear infinite;
+  }
+  @keyframes orbit {
+    0% {
+      transform: rotate(var(--angle)) translateX(500px)
+        rotate(calc(-1 * var(--angle)));
+    } /* bigger radius */
+    50% {
+      transform: rotate(calc(360deg + var(--angle))) translateX(500px)
+        rotate(calc(-360deg - var(--angle)));
+    }
+    75% {
+      transform: rotate(calc(360deg + var(--angle))) translateX(500px)
+        rotate(calc(-360deg - var(--angle)));
+    }
+    100% {
+      transform: rotate(calc(360deg + var(--angle))) translateX(500px)
+        rotate(calc(-360deg - var(--angle)));
+    }
+  }
+
+  /* Typewriter Text */
+  @keyframes typing {
+    from {
+      width: 0;
+    }
+    to {
+      width: 100%;
+    }
+  }
+  .text-typing {
+    width: 0;
+    animation: typing 4s steps(40) forwards infinite;
+  }
+</style>
